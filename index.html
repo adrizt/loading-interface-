@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Neon Loading</title>
+  <title>Love Interface</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="Neon Interface">
-  <meta property="og:description" content="Loading experience...">
+
+  <!-- ================= OG PREVIEW (EDIT HERE) ================= -->
+  <meta property="og:title" content="Love Interface">
+  <meta property="og:description" content="A premium neon love visual experience">
   <meta property="og:image" content="https://i.imgur.com/RB0zVxo.jpeg">
+  <!-- ========================================================== -->
 
   <style>
     * {
@@ -19,23 +22,25 @@
     body {
       height: 100vh;
       overflow: hidden;
-      background: #05070f;
+      background: #07040f;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
     }
 
-    /* neon glow background */
+    /* ===== NEON LOVE BACKGROUND ===== */
     .bg {
       position: fixed;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle at 20% 30%, #00f5ff33, transparent 40%),
-                  radial-gradient(circle at 80% 70%, #ff00ff33, transparent 45%),
-                  radial-gradient(circle at 50% 50%, #7a5cff22, transparent 50%);
+      background:
+        radial-gradient(circle at 20% 30%, #ff4fd833, transparent 40%),
+        radial-gradient(circle at 80% 70%, #7a5cff33, transparent 45%),
+        radial-gradient(circle at 50% 50%, #ff7ac633, transparent 50%);
       filter: blur(60px);
-      animation: move 12s infinite alternate;
+      animation: move 10s infinite alternate;
+      z-index: 0;
     }
 
     @keyframes move {
@@ -43,16 +48,27 @@
       100% { transform: translate(5%, 5%); }
     }
 
-    /* card */
+    /* ===== HEART PARTICLES CANVAS ===== */
+    #heartCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ===== CARD ===== */
     .card {
       width: 340px;
       padding: 30px;
       border-radius: 18px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(0,255,255,0.2);
+      border: 1px solid rgba(255, 105, 180, 0.25);
       backdrop-filter: blur(18px);
       text-align: center;
-      box-shadow: 0 0 40px rgba(0,255,255,0.08);
+      box-shadow: 0 0 40px rgba(255, 105, 180, 0.08);
       z-index: 2;
     }
 
@@ -62,13 +78,13 @@
       margin: 0 auto 15px;
       border-radius: 16px;
       background: url('https://i.imgur.com/RB0zVxo.jpeg') center/cover;
-      box-shadow: 0 0 20px #00f5ff55;
+      box-shadow: 0 0 20px #ff4fd855;
     }
 
     h1 {
       font-size: 20px;
       margin-bottom: 6px;
-      text-shadow: 0 0 10px #00f5ff66;
+      text-shadow: 0 0 10px #ff4fd866;
     }
 
     p {
@@ -79,10 +95,9 @@
 
     .status {
       font-size: 12px;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-bottom: 15px;
-      color: #00f5ff;
-      text-shadow: 0 0 8px #00f5ff55;
+      color: #ff7ac6;
     }
 
     .bar {
@@ -97,28 +112,25 @@
     .fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #00f5ff, #ff00ff);
-      box-shadow: 0 0 10px #00f5ff;
-      transition: width 0.2s;
+      background: linear-gradient(90deg, #ff4fd8, #7a5cff);
+      transition: width 0.15s;
     }
 
     button {
       width: 100%;
       padding: 12px;
       border-radius: 14px;
-      border: 1px solid #00f5ff55;
+      border: 1px solid #ff4fd855;
       background: transparent;
-      color: #00f5ff;
+      color: #ff7ac6;
       font-weight: bold;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 0 10px #00f5ff22;
     }
 
     button:hover {
-      background: rgba(0,245,255,0.1);
+      background: rgba(255,79,216,0.1);
       transform: translateY(-2px);
-      box-shadow: 0 0 20px #00f5ff33;
     }
   </style>
 </head>
@@ -127,11 +139,13 @@
 
 <div class="bg"></div>
 
+<canvas id="heartCanvas"></canvas>
+
 <div class="card">
   <div class="logo"></div>
 
-  <h1>Neon Interface</h1>
-  <p>Initializing system module</p>
+  <h1>Love Interface</h1>
+  <p>Premium neon visual experience</p>
 
   <div class="status" id="status">Booting...</div>
 
@@ -143,34 +157,103 @@
 </div>
 
 <script>
+
+  /* ================= SMARTLINK (EDIT HERE) ================= */
   const link = "https://fdeddg.hubss.one/p/nhVNy";
+  /* ======================================================== */
 
   function go() {
     window.location.href = link;
   }
 
+  // ===== FAST LOADING =====
   let progress = 0;
   const fill = document.getElementById("fill");
 
   setInterval(() => {
     if (progress < 100) {
-      progress += Math.random() * 5;
+      progress += Math.random() * 10;
       if (progress > 100) progress = 100;
       fill.style.width = progress + "%";
     }
-  }, 200);
+  }, 120);
 
   const texts = [
-    "Syncing modules...",
-    "Loading assets...",
-    "System ready..."
+    "Syncing love modules...",
+    "Loading visuals...",
+    "Ready..."
   ];
 
   let i = 0;
   setInterval(() => {
     document.getElementById("status").innerText = texts[i];
     i = (i + 1) % texts.length;
-  }, 1500);
+  }, 900);
+
+  // ===== HEART PARTICLES =====
+  const canvas = document.getElementById("heartCanvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  const hearts = [];
+
+  function createHeart() {
+    return {
+      x: Math.random() * canvas.width,
+      y: canvas.height + 20,
+      size: Math.random() * 10 + 6,
+      speed: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.5 + 0.3,
+      drift: Math.random() * 1 - 0.5
+    };
+  }
+
+  setInterval(() => {
+    if (hearts.length < 25) {
+      hearts.push(createHeart());
+    }
+  }, 200);
+
+  function drawHeart(x, y, size, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = "#ff4fd8";
+
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.bezierCurveTo(x, y - size/2, x - size, y - size/2, x - size, y);
+    ctx.bezierCurveTo(x - size, y + size/2, x, y + size, x, y + size*1.2);
+    ctx.bezierCurveTo(x, y + size, x + size, y + size/2, x + size, y);
+    ctx.bezierCurveTo(x + size, y - size/2, x, y - size/2, x, y);
+    ctx.fill();
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < hearts.length; i++) {
+      let h = hearts[i];
+      h.y -= h.speed;
+      h.x += h.drift;
+
+      drawHeart(h.x, h.y, h.size, h.alpha);
+
+      if (h.y < -20) {
+        hearts[i] = createHeart();
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
 </script>
 
 </body>
